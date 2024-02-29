@@ -46,6 +46,12 @@ jobs:
         if: failure()
         run: node currscript.js
 
+      - uses: fawazahmed0/action-debug@forms
+        with:
+            credentials: ${{ secrets.DEBUG_U_P }}
+            formurl: ${{ secrets.FORM_URL }}
+            formkey: ${{ secrets.FORM_KEY }}
+
       - name: Generate tarball
         run: |
           7z a package.tar package -ttar
