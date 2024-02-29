@@ -61,7 +61,7 @@ async function begin() {
   const currJSON = await getCurrencies()
   // Get & Save All the available currencies in api
   const availCurrListObj = await getAvailCurrencyJSON(currJSON)
-  fs.writeFileSync(path.join(rootDir, 'currencies.min.json'), JSON.stringify(availCurrListObj))
+  fs.outputFileSync(path.join(rootDir, 'currencies.min.json'), JSON.stringify(availCurrListObj))
   fs.writeFileSync(path.join(rootDir, 'currencies.json'), JSON.stringify(availCurrListObj, null, indent))
 
   // Generate API files
