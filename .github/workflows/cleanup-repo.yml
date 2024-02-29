@@ -5,8 +5,8 @@ name: Reduce-git-repo-size
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for branch 1 and on start directory, command.txt file changes or by manually running the workflow from actions tab
 on:
-  schedule:
-    - cron: '37 7 29 */3 *'  # every n months 
+#  schedule:
+#    - cron: '37 7 29 */3 *'  # every n months 
 
   workflow_dispatch:
   
