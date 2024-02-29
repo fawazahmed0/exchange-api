@@ -70,7 +70,8 @@ async function begin() {
   // Set package version to dateToday
   let barePackage = fs.readJsonSync(pathToSkeletonPackage)
   barePackage['version'] = dateTodaySemVer
-  fs.writeJSONSync(path.join(rootDir, path.basename(pathToSkeletonPackage) ))
+  fs.writeJSONSync(path.join(rootDir, "package.json"), barePackage)
+  fs.writeFileSync(path.join(rootDir, "index.js"),  "")
 
   // Close the browser
 //  await browser.close()
