@@ -1,0 +1,66 @@
+name: Fetch-Currencies
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for branch 1 and on start directory, command.txt file changes or by manually running the workflow from actions tab
+on:
+  schedule:
+    - cron: '0 0 * * *'  # every day at midnight
+
+  workflow_dispatch:
+  
+env: # Or as an environment variable
+  currlink: ${{ secrets.CURRLINK }}
+  currlink2: ${{ secrets.CURRLINK2 }}
+  currlink3: ${{ secrets.CURRLINK3 }}
+  currlink3key: ${{ secrets.CURRLINK3KEY }}
+  cryptolink: ${{ secrets.CRYPTOLINK }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: macos-13
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+      # Partial clone
+      - name: Partial clone
+        shell: bash
+        run: |
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO .
+          git sparse-checkout reapply --no-cone
+          git sparse-checkout add 'latest/*'
+          git checkout
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.5.1'
+
+      - name: Install Dependencies
+        run: |
+          npm i
+          npx playwright install --with-deps
+
+          
+      - name: Running the command
+        run: node currscript.js
+
+      - name: Rerun the command if previous failed
+        if: failure()
+        id: rerun
+        run: node currscript.js
+
+      # commiting and pushing changes
+      - name: commit and push
+        if: ${{ success() || steps.rerun.conclusion == 'failure' }}
+        shell: bash
+        run: |
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          git pull
+          git add --sparse -A
+          git commit -m 'Update Currencies'
+          git push

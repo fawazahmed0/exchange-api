@@ -1,0 +1,84 @@
+# Refer https://github.com/fawazahmed0/currency-api/issues/64
+
+name: Reduce-git-repo-size
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for branch 1 and on start directory, command.txt file changes or by manually running the workflow from actions tab
+on:
+  schedule:
+    - cron: '37 7 29 */3 *'  # every n months 
+
+  workflow_dispatch:
+  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: macos-13
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Install filter-repo and jsdelivr caching script
+        shell: bash
+        run: |
+          curl -L -o ../filter-repo.py https://raw.githubusercontent.com/fawazahmed0/currency-api/1/other/filter-repo.py
+          curl -L -o ../cache-jsdelivr-api.js https://raw.githubusercontent.com/fawazahmed0/currency-api/1/other/cache-jsdelivr-api.js
+          curl -L -o ../getdate-args.js https://raw.githubusercontent.com/fawazahmed0/currency-api/1/other/getdate-args.js
+          
+      - name: Cache jsdelivr latest folder in background
+        shell: bash
+        run: |
+          node ../cache-jsdelivr-api.js &
+
+      # clone
+      - name: clone
+        shell: bash
+        run: |
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          git config --global gc.auto 0
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.WORKFLOW_TOKEN_FULL }}@github.com/${GITHUB_REPOSITORY}.git"
+          git clone --no-checkout --sparse $REPO .
+          git sparse-checkout reapply --no-cone
+          git sparse-checkout add 'latest/*'
+          git checkout
+
+      # Clean up files & Expire old data
+      - name: Clean up latest folder
+        shell: bash
+        run: |
+          python3 ../filter-repo.py --force --invert-paths --path latest
+          git for-each-ref --format="delete %(refname)" refs/original | git update-ref --stdin
+          git reflog expire --expire=now --all
+
+      - name: Commit latest folder
+        shell: bash
+        run: |
+          git commit -m "cleanup" latest
+
+
+      # Clean up dates & Expire old data
+      - name: Clean up dates
+        shell: bash
+        run: |
+          python3 ../filter-repo.py --force --invert-paths --path node_modules `node ../getdate-args.js`
+          #python3 ../filter-repo.py --force --invert-paths --path `git ls-tree 1 --name-only | sort | grep -E '[0-9]+\-[0-9]+\-[0-9]+' | head -n 1`
+          git for-each-ref --format="delete %(refname)" refs/original | git update-ref --stdin
+          git reflog expire --expire=now --all
+
+      # Force pushing changes in chunks, 50 at a time, starting from 50000 
+      - name: Force push in chunks
+        shell: bash
+        run: |
+          for i in $(seq 50000 -50 0)
+          do
+            git push origin 1~$i:1 --force || true
+          done
+          git push origin 1:1 --force || true
