@@ -1,5 +1,6 @@
 {
     "name": "@fawazahmed0/currency-api",
+    "main": "index.js",
     "version": "YYYY.MM.DD"
   }
   
