@@ -1,4 +1,4 @@
-name: Fetch-Currencies
+name: Publish-Currencies
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for branch 1 and on start directory, command.txt file changes or by manually running the workflow from actions tab
@@ -20,47 +20,35 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: macos-13
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
-      # Partial clone
-      - name: Partial clone
-        shell: bash
-        run: |
-          REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO .
-          git sparse-checkout reapply --no-cone
-          git sparse-checkout add 'latest/*'
-          git checkout
 
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.5.1'
+          node-version: '21.6.2'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: |
           npm i
           npx playwright install --with-deps
-
           
       - name: Running the command
         run: node currscript.js
 
       - name: Rerun the command if previous failed
         if: failure()
-        id: rerun
         run: node currscript.js
 
-      # commiting and pushing changes
-      - name: commit and push
-        if: ${{ success() || steps.rerun.conclusion == 'failure' }}
-        shell: bash
+      - name: Generate tarball
         run: |
-          git config --global user.email github-actions@github.com
-          git config --global user.name github-actions
-          git pull
-          git add --sparse -A
-          git commit -m 'Update Currencies'
-          git push
+          
+
+      - name: publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
