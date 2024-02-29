@@ -44,6 +44,7 @@ for (const [key, value] of Object.entries(allcurr)) { allcurrLower[value.toLower
 
 const dateToday = new Date().toISOString().substring(0, 10)
 
+const latestDir = path.join(__dirname, 'latest')
 
 begin()
 // Begins the program
@@ -51,7 +52,7 @@ async function begin() {
   // launch the browser
  // await launchBrowser()
 
-  const latestDir = path.join(__dirname, 'latest')
+
 
   const currJSON = await getCurrencies()
   // Get & Save All the available currencies in api
@@ -180,12 +181,12 @@ function sortObjByKeys(obj) {
 
 // Generates the api files
 async function generateFiles(googBingCurrJSON) {
-  const currenciesDir = path.join(__dirname, 'latest', 'currencies')
+  const currenciesDir = path.join(latestDir, 'currencies')
   for (const [fromKey, fromValue] of Object.entries(googBingCurrJSON)) {
     const tempObj = {}
     tempObj['date'] = dateToday;
     tempObj[fromKey] = {}
-    const fromKeyDir = path.join(__dirname, 'latest', 'currencies', fromKey)
+    const fromKeyDir = path.join(latestDir, 'currencies', fromKey)
     fs.mkdirSync(fromKeyDir, {
       recursive: true
     })
