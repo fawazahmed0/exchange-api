@@ -43,6 +43,10 @@ const allcurrLower = {}
 for (const [key, value] of Object.entries(allcurr)) { allcurrLower[value.toLowerCase()] = key.toLowerCase() }
 
 const dateToday = new Date().toISOString().substring(0, 10)
+const dateTodaySemVer = dateToday.replaceAll('-','.')
+
+const pathToSkeletonPackage = path.join(__dirname, 'skeleton-package.json')
+
 
 const rootDir = path.join(__dirname, 'package')
 
@@ -63,12 +67,10 @@ async function begin() {
   // Generate API files
   await generateFiles(currJSON)
 
-  // Backup the latest currency files to today's date folder, for historical currency access
-  const dateDir = path.join(__dirname, dateToday)
-  fs.mkdirSync(dateDir, {
-      recursive: true
-    })
-  fs.copySync(rootDir, dateDir)
+  // Set package version to dateToday
+  let barePackage = fs.readJsonSync(pathToSkeletonPackage)
+  barePackage['version'] = dateTodaySemVer
+  fs.writeJSONSync(path.join(rootDir, path.basename(pathToSkeletonPackage) ))
 
   // Close the browser
 //  await browser.close()
