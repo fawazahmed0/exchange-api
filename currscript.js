@@ -70,7 +70,7 @@ async function begin() {
 
   // Set package version to dateToday
   let barePackage = fs.readJsonSync(pathToSkeletonPackage)
-  barePackage['version'] = '0.0.9'
+  barePackage['version'] = dateTodaySemVer
   fs.writeJSONSync(path.join(rootDir, '..' ,"package.json"), barePackage)
   fs.writeFileSync(path.join(rootDir, '..' ,"index.js"),  "")
 
