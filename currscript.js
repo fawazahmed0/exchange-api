@@ -4,7 +4,7 @@ const { firefox, devices } = require('playwright')
 
 
 // spaces to be used for prettify/json.stringify
-const indent = 4
+const indent = '\t'
 
 // By market capitalization
 // Ref: https://coinmarketcap.com/all/views/all/
