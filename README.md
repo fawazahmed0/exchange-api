@@ -58,7 +58,7 @@ https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.min.json <br>
 
 **Additional Fallback URL on CloudFlare:** <br>
-This fallback URL only returns latest currencies and does not have `date`
+This fallback URL only returns latest currencies and does not have `date` option
 
 `https://currency-api.pages.dev/{apiVersion}/{endpoint}`
 
