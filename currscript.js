@@ -1,6 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const { firefox, devices } = require('playwright')
+const semver = require('semver')
 
 
 // spaces to be used for prettify/json.stringify
@@ -43,7 +44,7 @@ const allcurrLower = {}
 for (const [key, value] of Object.entries(allcurr)) { allcurrLower[value.toLowerCase()] = key.toLowerCase() }
 
 const dateToday = new Date().toISOString().substring(0, 10)
-const dateTodaySemVer = dateToday.replaceAll('-','.')
+const dateTodaySemVer = semver.clean(dateToday.replaceAll('-','.'), true)
 
 const pathToSkeletonPackage = path.join(__dirname, 'skeleton-package.json')
 
