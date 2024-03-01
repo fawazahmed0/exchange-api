@@ -47,8 +47,9 @@ const dateTodaySemVer = dateToday.replaceAll('-','.')
 
 const pathToSkeletonPackage = path.join(__dirname, 'skeleton-package.json')
 
+const apiVersion = 1
 
-const rootDir = path.join(__dirname, 'package')
+const rootDir = path.join(__dirname, 'package', `v${apiVersion}`)
 
 begin()
 // Begins the program
@@ -70,8 +71,8 @@ async function begin() {
   // Set package version to dateToday
   let barePackage = fs.readJsonSync(pathToSkeletonPackage)
   barePackage['version'] = dateTodaySemVer
-  fs.writeJSONSync(path.join(rootDir, "package.json"), barePackage)
-  fs.writeFileSync(path.join(rootDir, "index.js"),  "")
+  fs.writeJSONSync(path.join(rootDir, '..' ,"package.json"), barePackage)
+  fs.writeFileSync(path.join(rootDir, '..' ,"index.js"),  "")
 
   // Close the browser
 //  await browser.close()
