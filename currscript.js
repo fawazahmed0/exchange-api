@@ -189,19 +189,10 @@ async function generateFiles(googBingCurrJSON) {
     const tempObj = {}
     tempObj['date'] = dateToday;
     tempObj[fromKey] = {}
-    const fromKeyDir = path.join(rootDir, 'currencies', fromKey)
-    fs.mkdirSync(fromKeyDir, {
-      recursive: true
-    })
 
-    for (const [toKey, toValue] of Object.entries(googBingCurrJSON)) {
-      const tempSingleObj = {}
+    for (const [toKey, toValue] of Object.entries(googBingCurrJSON)) 
       tempObj[fromKey][toKey] = currencyValue(fromValue, toValue)
-      tempSingleObj['date'] = dateToday;
-      tempSingleObj[toKey] = tempObj[fromKey][toKey]
-      fs.writeFileSync(path.join(fromKeyDir, toKey + '.min.json'), JSON.stringify(tempSingleObj))
-      fs.writeFileSync(path.join(fromKeyDir, toKey + '.json'), JSON.stringify(tempSingleObj, null, indent))
-    }
+    
     fs.writeFileSync(path.join(currenciesDir, fromKey + '.min.json'), JSON.stringify(tempObj))
     fs.writeFileSync(path.join(currenciesDir, fromKey + '.json'), JSON.stringify(tempObj, null, indent))
   }
