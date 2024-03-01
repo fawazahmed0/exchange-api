@@ -4,5 +4,8 @@
   "dependencies": {
     "fs-extra": "^11.2.0",
     "playwright": "^1.42.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.30.1"
   }
 }

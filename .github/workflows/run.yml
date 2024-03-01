@@ -62,6 +62,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Deploy to cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy --project-name=currency-api package
+
 #      - name: unpublish older version
 #        run: npm unpublish @fawazahmed0/currency-api@`date -d "94 days ago" -I | tr '-' '.'`
 #        env:
