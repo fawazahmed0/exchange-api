@@ -185,6 +185,9 @@ function sortObjByKeys(obj) {
 // Generates the api files
 async function generateFiles(googBingCurrJSON) {
   const currenciesDir = path.join(rootDir, 'currencies')
+  fs.mkdirSync(currenciesDir, {
+    recursive: true
+  })
   for (const [fromKey, fromValue] of Object.entries(googBingCurrJSON)) {
     const tempObj = {}
     tempObj['date'] = dateToday;
