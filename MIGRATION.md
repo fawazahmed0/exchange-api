@@ -3,4 +3,14 @@
 
 2. change `date` from `YYYY-MM-DD` to `YYYY.M.D` . Eg: `2024-03-02` becomes `2024.3.2` 
 
-3. There is no  `/currencies/{currencyCode}/{currencyCode}` endpoint in this new API, so please only use `/currencies/{currencyCode}` endpoint
+3. There is no  `/currencies/{currencyCode}/{currencyCode}` endpoint in this new API, so please only use `/currencies/{currencyCode}` endpoint. See example given below.
+
+```js
+json = fetchJSON(`/currencies/{fromCurrency}/{toCurrency}`)
+rate = json[toCurrency]
+```
+becomes
+```js
+json = fetchJSON(`/currencies/{fromCurrency}`)
+rate = json[fromCurrency][toCurrency]
+```
