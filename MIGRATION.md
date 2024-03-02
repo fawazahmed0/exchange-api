@@ -3,7 +3,7 @@
 
 2. change `date` from `YYYY-MM-DD` to `YYYY.M.D` . Eg: `2024-03-02` becomes `2024.3.2` 
 
-3. There is no  `/currencies/{currencyCode}/{currencyCode}` endpoint in this new API, so please only use `/currencies/{currencyCode}` endpoint. See example given below.
+3. There is no  `/currencies/{currencyCode}/{currencyCode}` endpoint in this new API, so please only use `/currencies/{currencyCode}` endpoint. For example:
 
 ```js
 json = fetchJSON(`/currencies/{fromCurrency}/{toCurrency}`)
@@ -14,3 +14,5 @@ becomes
 json = fetchJSON(`/currencies/{fromCurrency}`)
 rate = json[fromCurrency][toCurrency]
 ```
+
+4. (Optional Step) Add [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/blob/main/README.md#:~:text=Additional%20Fallback%20URL%20on%20CloudFlare%3A) in your code, to avoid issues in the future.
