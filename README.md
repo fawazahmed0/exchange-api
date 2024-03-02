@@ -1,7 +1,7 @@
 <h1 align="center">Free Currency Exchange Rates API</h1> 
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/fawazahmed0/currency-api/raw/1/money.jpg">
+  <img width="460" height="300" src="https://github.com/fawazahmed0/exchange-api/raw/main/money.jpg">
 </p>
 
 [![Publish-Currencies](https://github.com/fawazahmed0/exchange-api/actions/workflows/run.yml/badge.svg)](https://github.com/fawazahmed0/exchange-api/actions/workflows/run.yml)
