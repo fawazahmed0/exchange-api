@@ -7,18 +7,18 @@
 [![Publish-Currencies](https://github.com/fawazahmed0/exchange-api/actions/workflows/run.yml/badge.svg)](https://github.com/fawazahmed0/exchange-api/actions/workflows/run.yml)
 
 
-**Features:**
+#### Features:
 - Free & Blazing Fast response
 - No Rate limits
 - 150+ Currencies, Including Common Cryptocurrencies
 - Daily Updated
 
 
-**URL Structure:**
+#### URL Structure:
 
 `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{date}/{apiVersion}/{endpoint}`
 
-**Formats:**
+#### Formats:
 
 `date`
 
@@ -31,7 +31,7 @@ The Endpoints Supports HTTP GET Method and returns the data in two formats:
 `/{endpoint}.min.json`
 
 
-**Endpoints:**
+#### Endpoints:
 
 - `/currencies`<br>
 > Lists all the available currencies in prettified json format:<br>
