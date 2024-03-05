@@ -61,7 +61,7 @@ This fallback URL only returns latest currencies
 > Get the currency list with BTC as base currency:<br>
 https://currency-api.pages.dev/v1/currencies/btc.json
 
-**Warning:** Please include above Fallback mechanism in your code, for example if `cdn.jsdelivr.net` link fails, fetch from `currency-api.pages.dev`
+**Warning:** Please include above Fallback in your code, for example if `cdn.jsdelivr.net` link fails, fetch from `currency-api.pages.dev`
 
 **Migrating from Previous Currency API:** [Read this](https://github.com/fawazahmed0/exchange-api/blob/main/MIGRATION.md)
 
