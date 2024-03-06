@@ -53,7 +53,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
-           pages deploy --project-name=currency-api --branch=`date -I` package
+           pages deploy --project-name=currency-api --branch=$(date -I) package
 
 
 #      - name: unpublish older version
