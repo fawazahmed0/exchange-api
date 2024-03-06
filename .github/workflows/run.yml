@@ -48,7 +48,7 @@ jobs:
 
       - name: Set date today
         run: |
-          echo "date_today=`date -I`" >> "$GITHUB_ENV"
+          echo "date_today=`date -uI`" >> "$GITHUB_ENV"
           echo "date_today_semver=`node semver-date.js`" >> "$GITHUB_ENV"
 
       - name: Generate tarball
@@ -59,7 +59,7 @@ jobs:
       - name: publish
         run: |
           npm publish --access public package.tar.gz
-          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} `date -I`
+          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
