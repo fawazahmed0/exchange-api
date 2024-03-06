@@ -55,6 +55,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
+           pages deploy --project-name=currency-api package
+           pages deploy --project-name=currency-api --branch=latest package
            pages deploy --project-name=currency-api --branch=${{ env.date_today }} package
 
 
