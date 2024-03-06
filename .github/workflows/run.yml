@@ -46,15 +46,6 @@ jobs:
         if: failure()
         run: node currscript.js
 
-      - name: Generate tarball
-        run: |
-          7z a package.tar package -ttar
-          7z a package.tar.gz package.tar -tgzip -mx=9 -aoa -mfb=258 -mmt=on
-
-      - name: publish
-        run: npm publish --access public package.tar.gz
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deploy to cloudflare
         uses: cloudflare/wrangler-action@v3
