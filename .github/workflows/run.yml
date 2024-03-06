@@ -47,7 +47,9 @@ jobs:
         run: node currscript.js
 
       - name: Set date today
-        run: echo "date_today=`date -I`" >> "$GITHUB_ENV"
+        run: |
+          echo "date_today=`date -I`" >> "$GITHUB_ENV"
+          echo "date_today_semver=`node semver-date.js`" >> "$GITHUB_ENV"
 
       - name: Generate tarball
         run: |
@@ -55,7 +57,9 @@ jobs:
           7z a package.tar.gz package.tar -tgzip -mx=9 -aoa -mfb=258 -mmt=on
 
       - name: publish
-        run: npm publish --access public package.tar.gz
+        run: |
+          npm publish --access public package.tar.gz
+          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} `date -I`
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
