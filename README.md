@@ -22,7 +22,7 @@
 
 `date`
 
-The date should either be `latest` or in `YYYY.M.D` format <br>
+The date should either be `latest` or in `YYYY-MM-DD` format <br>
 
 The Endpoints Supports HTTP GET Method and returns the data in two formats:
 
@@ -45,7 +45,7 @@ https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.min.
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json <br>
 
 > Get the currency list with EUR as base currency on date 2024-03-02:<br>
-https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2024.3.2/v1/currencies/eur.json <br>
+https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2024-03-02/v1/currencies/eur.json <br>
 
 > Get the currency list with BTC as base currency:<br>
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.json <br>
@@ -54,12 +54,14 @@ https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.min.json <br>
 
 #### Additional Fallback URL on CloudFlare: 
-This fallback URL only returns latest currencies
 
-`https://currency-api.pages.dev/{apiVersion}/{endpoint}`
+`https://{date}.currency-api.pages.dev/{apiVersion}/{endpoint}`
 
-> Get the currency list with BTC as base currency:<br>
-https://currency-api.pages.dev/v1/currencies/btc.json
+> Get the currency list with EUR as base currency:<br>
+https://latest.currency-api.pages.dev/v1/currencies/eur.json
+
+> Get the currency list with EUR as base currency on date 2024-03-06:<br>
+https://2024-03-06.currency-api.pages.dev/v1/currencies/eur.json
 
 **Warning:** Please include [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/issues/90#issue-2168885277) in your code, for example if `cdn.jsdelivr.net` link fails, fetch from `currency-api.pages.dev`
 
