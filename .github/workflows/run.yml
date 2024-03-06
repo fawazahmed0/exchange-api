@@ -46,6 +46,8 @@ jobs:
         if: failure()
         run: node currscript.js
 
+      - name: Set date today
+        run: echo "date_today=`date -I`" >> "$GITHUB_ENV"
 
       - name: Deploy to cloudflare
         uses: cloudflare/wrangler-action@v3
@@ -53,7 +55,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
-           pages deploy --project-name=currency-api --branch=$(date -I) package
+           pages deploy --project-name=currency-api --branch=${{ env.date_today }} package
 
 
 #      - name: unpublish older version
