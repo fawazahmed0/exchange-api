@@ -53,7 +53,7 @@ https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.
 > Get the currency list with BTC as base currency in minified format:<br>
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.min.json <br>
 
-#### Additional Fallback URL on CloudFlare: 
+#### Additional Fallback URL on Cloudflare: 
 
 `https://{date}.currency-api.pages.dev/{apiVersion}/{endpoint}`
 
