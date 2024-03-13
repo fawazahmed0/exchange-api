@@ -13,7 +13,7 @@ json = fetchJSON(`/currencies/{fromCurrency}`)
 rate = json[fromCurrency][toCurrency]
 ```
 
-3. (Optional Step) Add [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/blob/main/README.md#additional-fallback-url-on-cloudflare:~:text=Additional%20Fallback%20URL%20on%20CloudFlare%3A) in your code, to avoid any issue in the future.
+3. (Optional Step) Add [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/blob/main/README.md#additional-fallback-url-on-cloudflare:~:text=Additional%20Fallback%20URL%20on%20Cloudflare%3A) in your code, to avoid any issue in the future.
 
 
 Refer [Readme](https://github.com/fawazahmed0/exchange-api#endpoints) for URL examples and refer [this](https://github.com/fawazahmed0/exchange-api/issues/89) to know why migration was necessary
