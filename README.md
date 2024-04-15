@@ -44,8 +44,8 @@ https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.min.
 > Get the currency list with EUR as base currency:<br>
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json <br>
 
-> Get the currency list with EUR as base currency on date 2024-03-02:<br>
-https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2024-03-02/v1/currencies/eur.json <br>
+> Get the currency list with EUR as base currency on date 2024-03-06:<br>
+https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2024-03-06/v1/currencies/eur.json <br>
 
 > Get the currency list with BTC as base currency:<br>
 https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/btc.json <br>
