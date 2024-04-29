@@ -75,6 +75,8 @@ async function begin() {
   fs.writeJSONSync(path.join(rootDir, '..' ,"package.json"), barePackage)
   fs.writeFileSync(path.join(rootDir, '..' ,"index.js"),  "")
 
+  fs.copyFileSync(path.join(__dirname, 'country.json'), path.join(rootDir, 'country.json'))
+
   // Close the browser
 //  await browser.close()
 }
