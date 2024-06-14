@@ -40,10 +40,12 @@ jobs:
           npx playwright install --with-deps
           
       - name: Running the command
+        id: run-command
+        continue-on-error: true
         run: node currscript.js
 
       - name: Rerun the command if previous failed
-        if: failure()
+        if: ${{ steps.run-command.outcome == 'failure' }}
         run: node currscript.js
 
       - name: Set date today
