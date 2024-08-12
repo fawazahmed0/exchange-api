@@ -98,10 +98,6 @@ async function getCurrencies() {
 let currDataObj = await getCurrData(currLink)
 currDataObj = toLowerCaseKeysBaseCurr(currDataObj)
 
-let currDataObj2 = await getCurrData(currLink2)
-// we need to convert base usd to eur
-currDataObj2 = toLowerCaseKeysBaseCurr(currDataObj2, currDataObj['usd'])
-
 let currDataObj3 = toLowerCaseKeysBaseCurr( (await getCurrData3()) )
 // we need to convert base usd to eur
 currDataObj3 = 'eur' in currDataObj3 ? toLowerCaseKeysBaseCurr(currDataObj3, 1/currDataObj3['eur']) : {}
@@ -109,7 +105,7 @@ currDataObj3 = 'eur' in currDataObj3 ? toLowerCaseKeysBaseCurr(currDataObj3, 1/c
 let cryptoDataObj = await getCryptoData()
 // we also need to convert base usd to eur
 cryptoDataObj = toLowerCaseKeysBaseCurr(cryptoDataObj,currDataObj['usd'])
-  let CurrJSON = {...currDataObj2, ...currDataObj, ...cryptoDataObj, ...currDataObj3, eur: 1 }
+  let CurrJSON = { ...currDataObj, ...cryptoDataObj, ...currDataObj3, eur: 1 }
   currencyCodesToRemove.forEach(e=>delete CurrJSON?.[e.toLowerCase()])
   // return sorted object
   return sortObjByKeys(CurrJSON)
