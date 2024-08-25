@@ -10,7 +10,7 @@
 #### Features:
 - Free & Blazing Fast response
 - No Rate limits
-- 150+ Currencies, Including Common Cryptocurrencies
+- 200+ Currencies, Including Common Cryptocurrencies & Metals
 - Daily Updated
 
 
