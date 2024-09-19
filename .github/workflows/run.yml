@@ -58,6 +58,12 @@ jobs:
           7z a package.tar package -ttar
           7z a package.tar.gz package.tar -tgzip -mx=9 -aoa -mfb=258 -mmt=on
 
+      - name: publish
+        run: |
+          npm publish --access public package.tar.gz
+          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deploy to cloudflare
         uses: cloudflare/wrangler-action@v3
