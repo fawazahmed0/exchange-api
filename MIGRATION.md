@@ -4,7 +4,7 @@
 - https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/{date}/{endpoint}
 + https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{date}/v1/{endpoint}
 ```
-2. Change all `/currencies/{currencyCode}/{currencyCode}` endpoints to `/currencies/{currencyCode}` endpoint.
+2. Change `/currencies/{currencyCode}/{currencyCode}` -> `/currencies/{currencyCode}`
 ```diff
 - json = fetchJSON(`/currencies/{fromCurrency}/{toCurrency}`)
 + json = fetchJSON(`/currencies/{fromCurrency}`)
