@@ -14,7 +14,7 @@ let topCryptoCurrency = ["BTC","ETH","ADA","BNB","USDT","XRP","SOL","DOT","DOGE"
                          "ONE","EGLD","CHZ","GRT","1INCH","INJ","ENJ","KSM","CRO","SHIB","LEO","NEAR","BTCB","FLOW","XTZ","KCS", "SAND","KLAY","MKR",
                         "HT","DFI","TTT","WAVES","HNT","BSV","USDP","MIOTA","FTM","XEC","RUNE","QNT","NEO","CAKE","STX","LRC","OKB","NEXO","ZIL","DASH",
                         "PAXG","CELO","BAT","CVX","CRV","KAVA","GALA","DCR","GNO","AMP","XDC","WEMIX","XEM","MINA","HOT","AR","GT","FEI","COMP","QTUM",
-                        "KNC","BTG","KDA","mBTC","uBTC","mETH","XCH","BSW","BAKE","KAS", "TON", "RVN","LDO","MNT","APT","ARB","OP","USDD","IMX","APE","SNX",
+                        "KNC","BTG","KDA","mBTC","uBTC","mETH","XCH","BSW","BAKE","KAS", "TON", "TONCOIN", "RVN","LDO","MNT","APT","ARB","OP","USDD","IMX","APE","SNX",
                          "RNDR","RPL","XAUt","FXS","PEPE","CFX","CSPR","BTT","SUI","LUNC","GUSD","TWT","GMX","AKT","NFT","FLR","DYDX","WOO","MBX","AGIX",
                          "ORDI","1000SATS"]
 
