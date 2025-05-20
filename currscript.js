@@ -10,7 +10,7 @@ const indent = '\t'
 // By market capitalization
 // Ref: https://coinmarketcap.com/all/views/all/
 let topCryptoCurrency = ["BTC","ETH","ADA","BNB","USDT","XRP","SOL","DOT","DOGE","USDC","UNI","LUNA","LINK","AVAX","LTC","BUSD","AAVE","FRAX","HBAR",
-                         "BCH","ALGO","WBTC","ICP","MATIC","FIL","TRX","FTT","XLM","VET","ATOM","ETC","THETA","DAI","XMR","MANA","ZEC","TUSD","EOS","AXS",
+                         "BCH","ALGO","WBTC","ICP","POL","FIL","TRX","FTT","XLM","VET","ATOM","ETC","THETA","DAI","XMR","MANA","ZEC","TUSD","EOS","AXS",
                          "ONE","EGLD","CHZ","GRT","1INCH","INJ","ENJ","KSM","CRO","SHIB","LEO","NEAR","BTCB","FLOW","XTZ","KCS", "SAND","KLAY","MKR",
                         "HT","DFI","TTT","WAVES","HNT","BSV","USDP","MIOTA","FTM","XEC","RUNE","QNT","NEO","CAKE","STX","LRC","OKB","NEXO","ZIL","DASH",
                         "PAXG","CELO","BAT","CVX","CRV","KAVA","GALA","DCR","GNO","AMP","XDC","WEMIX","XEM","MINA","HOT","AR","GT","FEI","COMP","QTUM",
