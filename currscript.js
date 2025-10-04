@@ -16,7 +16,7 @@ let topCryptoCurrency = ["BTC","ETH","ADA","BNB","USDT","XRP","SOL","DOT","DOGE"
                         "PAXG","CELO","BAT","CVX","CRV","KAVA","GALA","DCR","GNO","AMP","XDC","WEMIX","XEM","MINA","HOT","AR","GT","FEI","COMP","QTUM",
                         "KNC","BTG","KDA","mBTC","uBTC","mETH","XCH","BSW","BAKE","KAS", "TON", "TONCOIN", "RVN","LDO","MNT","APT","ARB","OP","USDD","IMX","APE","SNX",
                          "RNDR","RPL","XAUt","FXS","PEPE","CFX","CSPR","BTT","SUI","LUNC","GUSD","TWT","GMX","AKT","NFT","FLR","DYDX","WOO","MBX","AGIX",
-                         "ORDI","1000SATS"]
+                         "ORDI","1000SATS", "PI"]
 
 let currencyCodesToRemove = ["CLF"]
 
