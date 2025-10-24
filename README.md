@@ -15,8 +15,7 @@
 
 
 #### URL Structure:
-
-`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{date}/{apiVersion}/{endpoint}`
++ https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{date}/v1/{endpoint}
 
 #### Formats:
 
