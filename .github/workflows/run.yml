@@ -61,6 +61,7 @@ jobs:
           7z a package.tar.gz package.tar -tgzip -mx=9 -aoa -mfb=258 -mmt=on
 
       - name: publish
+        if: false
         run: |
           npm publish --access public package.tar.gz
 
@@ -71,6 +72,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deploy to cloudflare
+        if: false
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
