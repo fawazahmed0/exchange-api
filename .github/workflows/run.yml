@@ -8,9 +8,7 @@ on:
 
   workflow_dispatch:
 
-permissions:
-  id-token: write  # Required for OIDC
-  contents: read
+permissions: write-all
   
 env: # Or as an environment variable
   currlink: ${{ secrets.CURRLINK }}
