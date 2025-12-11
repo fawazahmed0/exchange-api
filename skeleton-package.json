@@ -1,10 +1,9 @@
 {
-    "name": "@fawazahmed0/currency-api",
-    "main": "index.js",
-    "version": "YYYY.MM.DD",
-    "repository": {
+  "name": "@fawazahmed0/currency-api",
+  "main": "index.js",
+  "version": "YYYY.MM.DD",
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/fawazahmed0/exchange-api.git"
-  },
   }
-  
+}
