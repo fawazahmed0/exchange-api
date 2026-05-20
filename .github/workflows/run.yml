@@ -60,9 +60,6 @@ jobs:
           7z a package.tar package -ttar
           7z a package.tar.gz package.tar -tgzip -mx=9 -aoa -mfb=258 -mmt=on
 
-      - name: publish
-        run: |
-          npm publish --access public package.tar.gz
 
       - name: Add dist tag
         run: |
