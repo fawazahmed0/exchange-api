@@ -64,12 +64,6 @@ jobs:
         run: |
           npm publish --access public package.tar.gz
 
-      - name: Add dist tag
-        run: |
-          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Deploy to cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
@@ -80,6 +74,11 @@ jobs:
            pages deploy --project-name=currency-api --branch=latest package
            pages deploy --project-name=currency-api --branch=${{ env.date_today }} package
 
+      - name: Add dist tag
+        run: |
+          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 #      - name: unpublish older version
 #        run: npm unpublish @fawazahmed0/currency-api@`date -d "94 days ago" -I | tr '-' '.'`
