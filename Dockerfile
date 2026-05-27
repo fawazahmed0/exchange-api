@@ -21,4 +21,6 @@ RUN groupadd --system appgroup \
 USER appuser
 ENV HOME=/home/appuser
 
+EXPOSE 4000
+
 CMD ["pm2-runtime", "ecosystem.config.cjs"]
