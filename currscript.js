@@ -18,7 +18,7 @@ let topCryptoCurrency = ["BTC","ETH","ADA","BNB","USDT","XRP","SOL","DOT","DOGE"
                          "RNDR","RPL","XAUt","FXS","PEPE","CFX","CSPR","BTT","SUI","LUNC","GUSD","TWT","GMX","AKT","NFT","FLR","DYDX","WOO","MBX","AGIX",
                          "ORDI","1000SATS", "PI"]
 
-let currencyCodesToRemove = ["CLF"]
+let currencyCodesToRemove = ["CLF","kas","lunc","pepe","usdd"]
 
 let isocodes = ["AFN","EUR","ALL","DZD","USD","AOA","XCD","XAD","ARS","AMD","AWG","AUD","AZN","BSD","BHD","BDT","BBD","BYN","BZD","XOF","BMD","INR","BTN","BOB","BOV","BAM","BWP","NOK","BRL","BND","BGN","BIF","CVE","KHR","XAF","CAD","KYD","CLP","CLF","CNY","COP","COU","KMF","CDF","NZD","CRC","CUP","XCG","CZK","DKK","DJF","DOP","EGP","SVC","ERN","SZL","ETB","FKP","FJD","XPF","GMD","GEL","GHS","GIP","GTQ","GBP","GNF","GYD","HTG","HNL","HKD","HUF","ISK","IDR","XDR","IRR","IQD","ILS","JMD","JPY","JOD","KZT","KES","KPW","KRW","KWD","KGS","LAK","LBP","LSL","ZAR","LRD","LYD","CHF","MOP","MKD","MGA","MWK","MYR","MVR","MRU","MUR","XUA","MXN","MXV","MDL","MNT","MAD","MZN","MMK","NAD","NPR","NIO","NGN","OMR","PKR","PAB","PGK","PYG","PEN","PHP","PLN","QAR","RON","RUB","RWF","SHP","WST","STN","SAR","RSD","SCR","SLE","SGD","XSU","SBD","SOS","SSP","LKR","SDG","SRD","SEK","CHE","CHW","SYP","TWD","TJS","TZS","THB","TOP","TTD","TND","TRY","TMT","UGX","UAH","AED","USN","UYU","UYI","UYW","UZS","VUV","VES","VED","VND","YER","ZMW","ZWG","XBA","XBB","XBC","XBD","XTS","XXX","XAU","XPD","XPT","XAG"]
 
@@ -57,30 +57,25 @@ const rootDir = path.join(__dirname, 'package', `v${apiVersion}`)
 begin()
 // Begins the program
 async function begin() {
-  // launch the browser
- // await launchBrowser()
-
-
+  console.log('Starting currency data fetch...')
 
   const currJSON = await getCurrencies()
-  // Get & Save All the available currencies in api
+  console.log(`Fetched ${Object.keys(currJSON).length} currencies`)
+
   const availCurrListObj = await getAvailCurrencyJSON(currJSON)
   fs.outputFileSync(path.join(rootDir, 'currencies.min.json'), JSON.stringify(availCurrListObj))
   fs.writeFileSync(path.join(rootDir, 'currencies.json'), JSON.stringify(availCurrListObj, null, indent))
 
-  // Generate API files
   await generateFiles(currJSON)
+  console.log('Generated API files')
 
-  // Set package version to dateToday
   let barePackage = fs.readJsonSync(pathToSkeletonPackage)
   barePackage['version'] = dateTodaySemVer
   fs.writeJSONSync(path.join(rootDir, '..' ,"package.json"), barePackage)
   fs.writeFileSync(path.join(rootDir, '..' ,"index.js"),  "")
 
-  fs.copyFileSync(path.join(__dirname, 'country.json'), path.join(rootDir, 'country.json'))
-
-  // Close the browser
-//  await browser.close()
+  fs.copySync(path.join(__dirname, 'country.json'), path.join(rootDir, 'country.json'))
+  console.log('Done. Output written to package/v1/')
 }
 
 
@@ -123,21 +118,28 @@ async function getCurrData(link){
 
 // USD as base rates
 async function getCryptoData(){
-  let response = await fetch(cryptoLink)
-  let data = await response.json()
-  let cleanJSON = {}
-  for(let value of data.data.reverse())
-    cleanJSON[value.symbol] = value.quote.USD.price
+  try {
+    let response = await fetch(cryptoLink)
+    let data = await response.json()
+    let cleanJSON = {}
+    // Support CoinGecko format (array) and CoinMarketCap format ({ data: [] })
+    const list = Array.isArray(data) ? data : data.data
+    for(let value of [...list].reverse())
+      cleanJSON[value.symbol?.toUpperCase()] = value.current_price ?? value.quote?.USD?.price
 
-  return Object.fromEntries(                                                           // Dividing value by 1 to convert to 1 USD as base rate
-    Object.entries(cleanJSON).filter(([k, v]) => topCryptoCurrency.includes(k)).map(([k,v])=>[k,1/v]) )
+    return Object.fromEntries(
+      Object.entries(cleanJSON).filter(([k, v]) => topCryptoCurrency.includes(k) && v).map(([k,v])=>[k,1/v]) )
+  } catch(e) {
+    console.error('getCryptoData failed:', e.message)
+    return {}
+  }
 }
 
 async function getCurrData3(){
-
-    const browser = await firefox.launch({headless: true});
-    let arrRes = []
+    let browser
     try{
+    browser = await firefox.launch({headless: true, timeout: 15000})
+    let arrRes = []
 
     const context = await browser.newContext({ ...devices['Desktop Firefox'] });
     const page = await context.newPage();
@@ -155,10 +157,10 @@ async function getCurrData3(){
     return arrRes.length > 0 ? arrRes[0].rates : {}
 
     }catch(e){
-        console.error(e)
+        console.error('getCurrData3 failed:', e.message)
         return {}
     }finally{
-        await browser.close()
+        await browser?.close()
     }
 }
 

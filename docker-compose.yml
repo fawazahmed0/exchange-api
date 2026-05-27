@@ -1,0 +1,10 @@
+services:
+  exchange-api:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./package:/app/package
+    security_opt:
+      - seccomp:unconfined
+    shm_size: 256m

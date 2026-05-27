@@ -1,4 +1,6 @@
 .dccache
 links.ini
+.env
 node_modules/
 package/
+.wrangler
