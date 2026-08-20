@@ -61,10 +61,12 @@ jobs:
           7z a package.tar.gz package.tar -tgzip -mx=9 -aoa -mfb=258 -mmt=on
 
       - name: publish
+        if: false
         run: |
           npm publish --access public package.tar.gz
 
       - name: Deploy to cloudflare
+        if: false
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -74,11 +76,19 @@ jobs:
            pages deploy --project-name=currency-api --branch=latest package
            pages deploy --project-name=currency-api --branch=${{ env.date_today }} package
 
+      - name: Authenticate to NPM with OIDC
+        id: auth
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken('https://registry.npmjs.org/');
+            core.setOutput('token', token);
+
       - name: Add dist tag
         run: |
           npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ steps.auth.outputs.token }}
 
 #      - name: unpublish older version
 #        run: npm unpublish @fawazahmed0/currency-api@`date -d "94 days ago" -I | tr '-' '.'`
