@@ -2,11 +2,11 @@
   "name": "currency-api",
   "version": "1.0.0",
   "dependencies": {
-    "fs-extra": "^11.2.0",
-    "playwright": "^1.49.1",
-    "semver": "^7.6.0"
+    "fs-extra": "^11.4.1",
+    "playwright": "^1.63.0",
+    "semver": "^7.8.5"
   },
   "devDependencies": {
-    "wrangler": "^3.30.1"
+    "wrangler": "^4.145.0"
   }
 }
