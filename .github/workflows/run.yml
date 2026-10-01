@@ -27,17 +27,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: '25.2.1'
+          node-version: '26.10.0'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: |
           sudo apt-get update -y
           sudo apt-get install swapspace -y
+          npm install -g npm@latest
           npm i
           npx playwright install --with-deps
           
@@ -63,6 +64,7 @@ jobs:
       - name: publish
         run: |
           npm publish --access public package.tar.gz
+          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
 
       - name: Deploy to cloudflare
         uses: cloudflare/wrangler-action@v3
@@ -74,11 +76,7 @@ jobs:
            pages deploy --project-name=currency-api --branch=latest package
            pages deploy --project-name=currency-api --branch=${{ env.date_today }} package
 
-      - name: Add dist tag
-        run: |
-          npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
 
 #      - name: unpublish older version
 #        run: npm unpublish @fawazahmed0/currency-api@`date -d "94 days ago" -I | tr '-' '.'`
