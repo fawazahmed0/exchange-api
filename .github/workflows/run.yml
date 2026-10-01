@@ -33,13 +33,14 @@ jobs:
         with:
           node-version: '26.10.0'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
 
       - name: Install Dependencies
         run: |
           sudo apt-get update -y
           sudo apt-get install swapspace -y
           npm install -g npm@latest
-          npm i
+          npm ci
           npx playwright install --with-deps
           
       - name: Running the command
@@ -67,7 +68,7 @@ jobs:
           npm dist-tag add @fawazahmed0/currency-api@${{ env.date_today_semver }} ${{ env.date_today }}
 
       - name: Deploy to cloudflare
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
