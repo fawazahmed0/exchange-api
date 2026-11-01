@@ -63,7 +63,14 @@ https://latest.currency-api.pages.dev/v1/currencies/eur.json
 > Get the currency list with EUR as base currency on date 2024-03-06:<br>
 https://2024-03-06.currency-api.pages.dev/v1/currencies/eur.json
 
-**Warning:** Please include [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/issues/90#issue-2168885277) in your code, for example if `cdn.jsdelivr.net` link fails, fetch from `currency-api.pages.dev`
+#### Third-party fallback (fiat only, last resort):
+
+`https://allratestoday.com/api/compat/currency-api/{date}/{apiVersion}/{endpoint}`
+
+> Same URL layout and JSON keys, served from the ECB reference table by [AllRatesToday](https://allratestoday.com/migrate/): about 30 fiat currencies, no crypto or metals. Currencies it does not cover return HTTP 404, so a client can fall through safely.<br>
+https://allratestoday.com/api/compat/currency-api/latest/v1/currencies/eur.json
+
+**Warning:** Please include [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/issues/90#issue-2168885277) in your code, for example if `cdn.jsdelivr.net` link fails, fetch from `currency-api.pages.dev`, then the third-party fallback above
 
 **Migrating from Previous Currency API:** [Read this](https://github.com/fawazahmed0/exchange-api/blob/main/MIGRATION.md)
 
