@@ -65,6 +65,10 @@ https://2024-03-06.currency-api.pages.dev/v1/currencies/eur.json
 
 **Warning:** Please include [Fallback mechanism](https://github.com/fawazahmed0/exchange-api/issues/90#issue-2168885277) in your code, for example if `cdn.jsdelivr.net` link fails, fetch from `currency-api.pages.dev`
 
+#### Related projects:
+
+- [FXpeek](https://fxpeek.com/en/api) — a human-readable converter for the same job (dated reference rates, CSV export, per-pair history pages). Its pages are free to browse and link to; the machine-readable endpoints (`/api/rates`, `/api/history`, `/api/csv`) require an API key, so it is a complement rather than a drop-in replacement for this API. Keyless machine formats it does expose are `/ai/summary.json`, `/ai.txt`, `/llms.txt` and `/openapi.json`.
+
 **Migrating from Previous Currency API:** [Read this](https://github.com/fawazahmed0/exchange-api/blob/main/MIGRATION.md)
 
 
